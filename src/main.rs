@@ -41,6 +41,10 @@ struct Args {
     /// Path to HTML output document.
     #[arg(short, long, default_value = "index.html")]
     output_path: String,
+
+    /// Wait x seconds before checking for new update.
+    #[arg(short, long, default_value_t = 60 * 10)]
+    frequency: u64,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -83,6 +87,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("Written HTML file to {}", args.output_path);
         }
 
-        thread::sleep(time::Duration::from_secs(10));
+        thread::sleep(time::Duration::from_secs(args.frequency));
     }
 }
